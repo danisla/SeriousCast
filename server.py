@@ -129,7 +129,7 @@ class SeriousRequestHandler(http.server.BaseHTTPRequestHandler):
             return self.file_not_found()
 
         channel = self.sbe.sxm.lineup[channel_number]
-        url = 'http://{}:{}/'.format(self.sbe.config('hostname'), self.sbe.config('port'))
+        url = '{}://{}:{}/'.format(self.sbe.config('url_scheme'), self.sbe.config('hostname'), self.sbe.config('publish_port'))
 
         logging.info('Streaming: Channel #{} "{}" with rewind {}'.format(
             channel_number,
@@ -235,9 +235,10 @@ class SeriousRequestHandler(http.server.BaseHTTPRequestHandler):
             return self.file_not_found()
 
         template = self.sbe.templates.get_template('playlist.pls')
-        playlist = template.render({'url': 'http://{}:{}/channel/{}'.format(
+        playlist = template.render({'url': '{}://{}:{}/channel/{}'.format(
+            self.sbe.config('url_scheme'),
             self.sbe.config('hostname'),
-            self.sbe.config('port'),
+            self.sbe.config('publish_port'),
             channel_number)})
         response = playlist.encode('utf-8')
 
