@@ -37,6 +37,26 @@ browser to get a list of available channels. Each channel has a "Stream" option,
 which plays in your browser window, and a "Playlist" option, which downloads
 a .pls file for use in your SHOUTcast player of choice.
 
+## Docker
+
+Building docker container:
+
+    docker build -t seriouscast:latest .
+
+Starting container:
+
+
+    export XM_USERNAME=<your XM username>
+    export XM_PASSWORD=<your XM password>
+    docker run -d --name seriouscast \
+      -e XM_USERNAME=$XM_USERNAME \
+      -e XM_PASSWORD=$XM_PASSWORD \
+      -e PUBLISH_HOST=example.com \
+      -e PUBLISH_PORT=30000 \
+      -e URL_SCHEME=http \
+      -e LISTEN_PORT=30000 \
+      seriouscast:latest
+
 ## License
 
 SeriousCast is licensed under the MIT (Expat) License.
