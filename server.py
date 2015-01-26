@@ -167,7 +167,11 @@ class SeriousRequestHandler(http.server.BaseHTTPRequestHandler):
                         if metadata:
                             new_title = '{} - {}'.format(metadata[1], metadata[0])
                             if new_title != track_title:
-                                logging.info("Now playing: " + new_title)
+                                logging.info("Now playing: " + str(channel_number) + ": " + new_title)
+                                logging.info('Now playing: Channel #{} "{}" "{}"'.format(
+                                    channel_number,
+                                    channel['name'],
+                                    new_title))
                                 track_title = new_title
                                 new_meta = True
 
